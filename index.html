@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- Mirrored from lesoptimistes.be/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 11 Nov 2023 09:50:54 GMT -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>index</title>
+<style type="text/css">
+body,td,th {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 24px;
+	color: #000000;
+}
+body {
+	background-image: url(BGindex.png);
+	text-align: center;
+	background-attachment: fixed;
+}
+</style>
+</head>
+<SCRIPT LANGUAGE="Javascript">
+<!-- Permuter une image
+function Permut (flag,img) {
+	if (document.images) {
+		if (document.images[img].permloaded) {
+			if (flag==1) document.images[img].src = document.images[img].perm.src
+			else document.images[img].src = document.images[img].perm.oldsrc
+		}
+	}
+}
+function preloadPermut (img,adresse) {
+	if (document.images) {
+		img.onload = null;
+		img.perm = new Image ();
+		img.perm.oldsrc = img.src;
+		img.perm.src = adresse;
+		img.permloaded = true;
+	}
+}
+// -->
+</SCRIPT>
+<SCRIPT>
+//////////////////////////////////////////////////////////
+// La fonction animatedObject() met en place les objets pour l'animation
+function animatedObject(elementName,loop,speed,steps,endRoutines,route){
+this.elementName = elementName;
+this.loop = loop;
+this.speed = speed;
+this.steps = steps;
+this.frameIndex = 0;
+this.endRoutines = endRoutines;
+this.route = route.split(',');
+this.animate = animateObject;
+this.move = moveObject;
+this.show = showObject;
+this.hide = hideObject;
+animatedObjects[elementName] = this;
+}
+
+// La fonstion stopTimeline() arrête une ligne du temps.
+// Il suffit de lui passer le numéro de la ligne du temps.
+function stopTimeline(timelineNumber){
+animationTime[timelineNumber] = animationTimeline[timelineNumber].length;
+}
+
+// La fonction startTimeline() lance une ligne du temps.
+// Il suffit de lui passer le numéro de la ligne du temps.
+function startTimeline(timelineNumber) {
+animationTime[timelineNumber] = 0;
+timelineController(timelineNumber);
+}
+
+// La fonction timelineController() contrôle la ligne du temps.
+// Elle boucle toutes les 100 millisecondes.
+function timelineController(timelineNumber) {
+if (animationTime[timelineNumber] <= animationTimeline[timelineNumber].length - 1) {
+animationTime[timelineNumber]++;
+if (animationTimeline[timelineNumber][animationTime[timelineNumber]] != null){
+eval(animationTimeline[timelineNumber][animationTime[timelineNumber]]);
+}
+setTimeout('timelineController(' + timelineNumber + ')', 100);
+}
+}
+
+// La fonction showObject() rend un élément Html visible.
+function showObject(){
+eval(layerObj + '["' + this.elementName + '"]' + styleObj + '.visibility = "visible"');
+}
+        
+// La fonction hideObject() rend un élément Html invisible.
+function hideObject(){
+eval(layerObj + '["' + this.elementName + '"]' + styleObj + '.visibility = "hidden"');
+}
+  
+// La fonction moveObject() fait bouger un élément Html jusqu'à une position déterminée.
+// On lui passe les coordonnées x et y.
+function moveObject(left, top){
+eval(layerObj + '["' + this.elementName + '"]' + styleObj + '.top = top');
+eval(layerObj + '["' + this.elementName + '"]' + styleObj + '.left = left');
+}
+
+// La fonction animatedObject() anime les objets
+function animateObject(){
+if (this.route.length > 4 && this.frameIndex < this.route.length)  {
+this.move(this.route[this.frameIndex], this.route[this.frameIndex + 1]);
+this.frameIndex += 2;
+setTimeout('animatedObjects["' + this.elementName + '"].animate()', this.speed);
+}
+else if (this.route.length == 4 && this.frameIndex <= this.steps) {
+this.move(parseInt(this.route[0]) + (this.frameIndex * ((parseInt(this.route[2]) -
+parseInt(this.route[0])) / this.steps)), parseInt(this.route[1]) + (this.frameIndex *
+((parseInt(this.route[3]) - parseInt(this.route[1])) / this.steps)));
+this.frameIndex++;
+setTimeout('animatedObjects["' + this.elementName + '"].animate()', this.speed);         
+}
+else {
+eval(this.endRoutines + "");
+this.frameIndex = 0;
+if (this.loop == "yes"){
+this.animate();
+}
+}
+}
+/////////////////////////////////////////////////
+
+///////// Configurer le script ici/////////////// 
+function initAnimation() {
+ url="trans21bis.html"
+  // Détecte le browser et masque le modèle object.
+  layerObj = (isNS) ? 'document' : 'document.all';
+  styleObj = (isNS) ? '' : '.style';
+
+  // Crée les arrays pour les ligne du temps et les animations.
+    animationTime = new Array();
+  animationTimeline = new Array();
+  animatedObjects = new Object();
+  
+  // Voici le premier objet animé. Des explications s'imposent...
+  /* 
+  robot1 = new animatedObject(
+  'objet1h',         - Le nom de l'objet à animer (voir les DIV)
+  'no',              - Est-ce que l'animation boucle ?
+   25,               - Le délai entre chaque déplacement en millisecondes
+   25,               - Le nombre de déplacement par animation
+  'null',            - Le code à éxercuter à la fin de l'animation (sinon, null)
+  '800,170,20,170'); - Les coordonnées de départ et d'arrivée
+                       800 : position de départ par rapport au bord gauche
+                       170 : position de départ par rapport au bord supérieur
+                        20 : position d'arrivée par rapport au bord gauche
+                       170 : position d'arrivée par rapport au bord supérieur
+  */
+
+  objet1 = new animatedObject('objet1h', 'no', 100, 100, 'null', '900,600,110,40');
+
+  // Pigé ?... Voici les animations suivantes.
+
+  objet2 = new animatedObject('objet2h', 'no', 100, 100, 'null', '-100,600,346,40');
+  objet3 = new animatedObject('objet3h', 'no', 100, 100, 'null', '900,600,417,40');
+  objet4 = new animatedObject('objet4h', 'no', 100, 100, 'null', '-100,600,483,40');
+  objet5 = new animatedObject('objet5h', 'no', 100, 100, 'null', '900,600,656,40');
+  objet6 = new animatedObject('objet6h', 'no', 100, 100, 'null', '-100,600,200,130'); 
+  objet7 = new animatedObject('objet7h', 'no', 100, 100, 'null', '900,600,439,130');
+  objet8 = new animatedObject('objet8h', 'no', 100, 100, 'null', '-100,600,586,130'); 
+  objet9 = new animatedObject('objet9h', 'no', 100, 100, 'null', '900,600,678,130'); 
+  objet10 = new animatedObject('objet10h', 'no', 100, 100, 'null', '75,600,75,514');
+
+  // Nous allons créer maintenant une ligne du temps Timeline[0] pour lancer les animations.
+  animationTimeline[0] = new Array();
+
+  /*
+  animationTimeline[0][10] = 'objet1.show();objet1.animate();';
+  La ligne du temps Timeline[0] va lancer, après 1 seconde [10],
+  la fonction objet1.show() et la fonction objet1.animate().
+  Et on continue ...
+  */
+  
+  animationTimeline[0][10] = 'objet1.show();objet1.animate();';
+  animationTimeline[0][20] = 'objet2.show();objet2.animate();';
+  animationTimeline[0][30] = 'objet3.show();objet3.animate();';
+  animationTimeline[0][40] = 'objet4.show();objet4.animate();';
+  animationTimeline[0][50] = 'objet5.show();objet5.animate();';
+  animationTimeline[0][60] = 'objet6.show();objet6.animate();';
+  animationTimeline[0][70] = 'objet7.show();objet7.animate();';
+  animationTimeline[0][80] = 'objet8.show();objet8.animate();';
+  animationTimeline[0][90] = 'objet9.show();objet9.animate();';
+  animationTimeline[0][120] = 'objet10.show();objet10.animate();';
+
+  // On démarre maintenant la ligne du temps.
+  // Notons que le lancement de l'animation peut être associé autrement
+  // qu'au chargement de la page mais par un onClick ou autre.
+  startTimeline(0);
+}
+
+//////////////////////////////////////////////////////s
+var layerObj, styleObj, totalTime, currTime;
+var animationTime, animationTimeline, animatedObjects;
+var bon, boff;
+var isNS = (navigator.appName == "Netscape");
+var isDHTML = (parseInt(navigator.appVersion) > 3);
+</SCRIPT>
+<script language="JavaScript">
+<!--
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+// -->
+</script>
+<style type="text/css">
+body {
+	background-image: url(BGindex.png);
+}
+</style>
+</head>
+
+<body style="width: 100%; overflow-x: hidden; overflow-y: hidden; color: #FFFFFF;" onLoad = "initAnimation()">
+<A HREF="...html" onMouseover="Permut(1,'IMG1');" 
+onMouseout="Permut(0,'IMG1');"> </A> 
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center"><a href="01ACCUEIL.html" onMouseOver="Permut(1,'IMG1');" 
+onMouseOut="Permut(0,'IMG1');"><img src="Index1.png" alt="" name="IMG1" width="600" height="400" 
+onLoad="preloadPermut(this,'Index2.png');" border="0" align="absmiddle" ></a></p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center">
+  <embed src="son%20index.wav" width="32" height="32"></embed>
+</p>
+</body>
+
+<!-- Mirrored from lesoptimistes.be/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 11 Nov 2023 09:51:39 GMT -->
+</html>
